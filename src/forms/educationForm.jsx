@@ -17,7 +17,7 @@ const EducationForm = ({ formTitle }) => {
                         <AiFillFileAdd style={{ width: "30px", height: "30px", cursor: "pointer" }} />
                     </button>
                 </div>
-                <h5>Test</h5>
+                <h5>Testtttttttttt</h5>
             </Card.Header>
         </Card>
     )
