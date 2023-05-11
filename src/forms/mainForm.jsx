@@ -59,13 +59,6 @@ const MainForm = () => {
         }
     };
 
-    // const handleSubmitWithoutPropagation = (e) => {
-    //     e.preventDefault();
-    //     e.stopPropagation();
-    //     console.log('e', e)
-    //     methods.handleSubmit(submitHandler)(e);
-    // };
-
     return (
         <Container className='border py-4 w-75'>
             <FormProvider {...methods}>
