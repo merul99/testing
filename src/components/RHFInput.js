@@ -10,6 +10,7 @@ const RHFInput = ({ isController = true, ...props }) => {
         control,
         defaultValue,
         onChange,
+        placeholder,
         isRequired = true,
         type = "text",
         rules
@@ -78,6 +79,7 @@ const RHFInput = ({ isController = true, ...props }) => {
                             ref={ref}
                             {...field}
                             type={type}
+                            placeholder={placeholder}
                             isInvalid={isError}
                             disabled={disabled}
                             onChange={(_) => {
