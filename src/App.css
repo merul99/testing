@@ -32,7 +32,25 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
+  }
+}
+
+.value-row {
+  display: flex;
+  margin-bottom: 3px;
+
+  .value-title {
+    font-weight: bold;
+    font-size: 18px;
+    flex: 0 0 15%;
+  }
+
+  .value-text {
+    flex: 1 1 auto;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
   }
 }

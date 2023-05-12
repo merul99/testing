@@ -9,7 +9,7 @@ import FinalOutput from './finalOutput'
 
 const MainForm = () => {
     const methods = useForm()
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(4);
     const formTitles = ["Basic Information", "Account Information", "Address Information", "Education Information"];
 
     const initialState = {

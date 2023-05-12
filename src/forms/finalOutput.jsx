@@ -1,8 +1,9 @@
 import React from 'react'
 import { Card, Container, Table } from 'react-bootstrap'
 
-const FinalOutput = ({ data, formTitles }) => {
-    console.log('data', data)
+const FinalOutput = ({ formTitles }) => {
+    // console.log('data', data)
+    const data = JSON.parse(localStorage.getItem("Data"))
     return (
         <Container className='border py-4 w-75'>
             <Card className="mb-2">
@@ -10,22 +11,22 @@ const FinalOutput = ({ data, formTitles }) => {
                     <h4>{formTitles[0]}</h4>
                 </Card.Header>
                 <Card.Body >
-                    <div className='d-flex'>
-                        <Card.Title>First Name : </Card.Title>
-                        <Card.Text>{data?.firstName}</Card.Text>
-                    </div>
-                    <div className='d-flex'>
-                        <Card.Title>Last Name : </Card.Title>
-                        <Card.Text>{data?.lastName}</Card.Text>
-                    </div>
-                    <div className='d-flex'>
-                        <Card.Title>Gender :  </Card.Title>
-                        <Card.Text> {data?.gender}</Card.Text>
-                    </div>
-                    <div className='d-flex'>
-                        <Card.Title>Contact No : </Card.Title>
-                        <Card.Text>{data?.phone}</Card.Text>
-                    </div>
+                    <p className='value-row'>
+                        <span className='value-title'>First Name : </span>
+                        <span className='value-text'>{data?.firstName}</span>
+                    </p>
+                    <p className='value-row'>
+                        <span className='value-title'>Last Name : </span>
+                        <span className='value-text'>{data?.lastName}</span>
+                    </p>
+                    <p className='value-row'>
+                        <span className='value-title'>Gender :  </span>
+                        <span className='value-text'> {data?.gender}</span>
+                    </p>
+                    <p className='value-row'>
+                        <span className='value-title'>Contact No : </span>
+                        <span className='value-text'>{data?.phone}</span>
+                    </p>
                 </Card.Body>
             </Card>
             <Card className="mb-2">
@@ -33,18 +34,18 @@ const FinalOutput = ({ data, formTitles }) => {
                     <h4>{formTitles[1]}</h4>
                 </Card.Header>
                 <Card.Body>
-                    <div className='d-flex'>
-                        <Card.Title>Username : </Card.Title>
-                        <Card.Text>{data?.username}</Card.Text>
-                    </div>
-                    <div className='d-flex'>
-                        <Card.Title>Email : </Card.Title>
-                        <Card.Text>{data?.email}</Card.Text>
-                    </div>
-                    <div className='d-flex'>
-                        <Card.Title>Password :  </Card.Title>
-                        <Card.Text> {data?.password}</Card.Text>
-                    </div>
+                    <p className='value-row'>
+                        <span className='value-title'>Username : </span>
+                        <span className='value-text'>{data?.username}</span>
+                    </p>
+                    <p className='value-row'>
+                        <span className='value-title'>Email : </span>
+                        <span className='value-text'>{data?.email}</span>
+                    </p>
+                    <p className='value-row'>
+                        <span className='value-title'>Password :  </span>
+                        <span className='value-text'> {data?.password}</span>
+                    </p>
                 </Card.Body>
             </Card>
             <Card className="mb-2">
@@ -52,26 +53,26 @@ const FinalOutput = ({ data, formTitles }) => {
                     <h4>{formTitles[2]}</h4>
                 </Card.Header>
                 <Card.Body>
-                    <div className='d-flex'>
-                        <Card.Title>Address 1 : </Card.Title>
-                        <Card.Text>{data?.address1}</Card.Text>
-                    </div>
-                    <div className='d-flex'>
-                        <Card.Title>Address 2 : </Card.Title>
-                        <Card.Text>{data?.address2}</Card.Text>
-                    </div>
-                    <div className='d-flex'>
-                        <Card.Title>State :  </Card.Title>
-                        <Card.Text> {data?.state}</Card.Text>
-                    </div>
-                    <div className='d-flex'>
-                        <Card.Title>City : </Card.Title>
-                        <Card.Text>{data?.city}</Card.Text>
-                    </div>
-                    <div className='d-flex'>
-                        <Card.Title>Pin Code : </Card.Title>
-                        <Card.Text>{data?.pincode}</Card.Text>
-                    </div>
+                    <p className='value-row'>
+                        <span className='value-title'>Address 1 : </span>
+                        <span className='value-text'>{data?.address1}</span>
+                    </p>
+                    <p className='value-row'>
+                        <span className='value-title'>Address 2 : </span>
+                        <span className='value-text'>{data?.address2}</span>
+                    </p>
+                    <p className='value-row'>
+                        <span className='value-title'>State :  </span>
+                        <span className='value-text'> {data?.state}</span>
+                    </p>
+                    <p className='value-row'>
+                        <span className='value-title'>City : </span>
+                        <span className='value-text'>{data?.city}</span>
+                    </p>
+                    <p className='value-row'>
+                        <span className='value-title'>Pin Code : </span>
+                        <span className='value-text'>{data?.pincode}</span>
+                    </p>
                 </Card.Body>
             </Card>
             <Card className="mb-2">
