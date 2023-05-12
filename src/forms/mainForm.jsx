@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Container, Form } from 'react-bootstrap'
+import { Button, Card, Container, Form } from 'react-bootstrap'
 import { useForm, FormProvider } from 'react-hook-form'
 import BasicFormInfo from './basicInfoForm'
 import AccountForm from './accountForm'
@@ -58,11 +58,14 @@ const MainForm = () => {
     };
 
     return (
-        <Container className='border py-4 w-75'>
+        <Card className='w-75 mt-5 m-auto'>
+            <Card.Header>
+                <h3 className='text-center'>Nested Form In Multi Step Form</h3>
+            </Card.Header>
             <FormProvider {...methods}>
                 <Form onSubmit={methods.handleSubmit(submitHandler)}>
-                    {PageDisplay(page)}
-                    {page < 4 && <div className="mt-3 text-center">
+                    <Card.Body>{PageDisplay(page)}</Card.Body>
+                    {page < 4 && <Card.Footer className="text-center">
                         <Button
                             className='mx-3'
                             variant='outline-secondary'
@@ -78,10 +81,10 @@ const MainForm = () => {
                             variant='outline-primary'>
                             {page === formTitles.length - 1 ? "Submit" : "Next"}
                         </Button>
-                    </div>}
+                    </Card.Footer>}
                 </Form>
             </FormProvider>
-        </Container>
+        </Card>
     )
 }
 

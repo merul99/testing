@@ -8,7 +8,7 @@ const BasicFormInfo = ({ formTitle }) => {
 
     return (
         <Card>
-            <Card.Header className='px-3'>
+            <Card.Header className='px-3' >
                 <h4>{formTitle}</h4>
             </Card.Header>
             <Card.Body>
