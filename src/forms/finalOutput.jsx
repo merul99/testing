@@ -2,7 +2,6 @@ import React from 'react'
 import { Card, Container, Table } from 'react-bootstrap'
 
 const FinalOutput = ({ formTitles }) => {
-    // console.log('data', data)
     const data = JSON.parse(localStorage.getItem("Data"))
     return (
         <Container className='border py-4 w-75'>

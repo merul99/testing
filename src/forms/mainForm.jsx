@@ -9,7 +9,7 @@ import FinalOutput from './finalOutput'
 
 const MainForm = () => {
     const methods = useForm()
-    const [page, setPage] = useState(4);
+    const [page, setPage] = useState(0);
     const formTitles = ["Basic Information", "Account Information", "Address Information", "Education Information"];
 
     const initialState = {
@@ -34,16 +34,14 @@ const MainForm = () => {
 
     const submitHandler = (values) => {
         console.log("This runs...");
+        const updatedData = { ...data, ...values };
         if (page === formTitles.length - 1) {
-            console.log('data', data)
-            setData({ ...data, ...values })
-            localStorage.setItem("Data", JSON.stringify(data))
-            setPage((currPage) => currPage + 1);
-        } else {
-            setData({ ...data, ...values })
-            setPage((currPage) => currPage + 1);
+            console.log('data', updatedData);
+            localStorage.setItem("Data", JSON.stringify(updatedData));
         }
-    }
+        setData(updatedData);
+        setPage((currPage) => currPage + 1);
+    };
 
     const PageDisplay = (page) => {
         if (page === 0) {

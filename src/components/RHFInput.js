@@ -16,36 +16,6 @@ const RHFInput = ({ isController = true, ...props }) => {
         rules
     } = props;
 
-    // if (!isController) {
-    //     return (
-    //         <Fragment>
-    //             <div className={label && "mb-2"}>
-    //                 {label && (
-    //                     <Label htmlFor="example-text-input" className="form-label">
-    //                         {label}
-    //                     </Label>
-    //                 )}
-    //                 {!disabledField ?
-    //                     <Input
-    //                         autoFocus={autoFocus}
-    //                         style={backgroundcolor ? { background: backgroundcolor, color: '#fff' } : null}
-    //                         type={type}
-    //                         {...props}
-    //                         onChange={(data) => {
-    //                             if (handleOnChange) {
-    //                                 handleOnChange(
-    //                                     data?.target?.value,
-    //                                     name
-    //                                 ); /* You must pass this function while isController is false -> else you will not get selected values */
-    //                             }
-    //                         }}
-    //                     />
-    //                     : <RHFDisableField fieldValue={defaultValue}></RHFDisableField>
-    //                 }
-    //             </div>
-    //         </Fragment>
-    //     );
-    // }
 
     let isError = false;
     let errorMessage = "";

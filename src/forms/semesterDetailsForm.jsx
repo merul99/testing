@@ -30,55 +30,90 @@ const SemesterDetailsForm = ({ formTitle, data, setData, degreeid, degree, }) =>
     }, [semesterEditMode])
 
     const editSemesterHandler = (semesterId, degreeId) => {
-        handleToggle()
-        setSemesterID(semesterId)
-        const foundDegree = data.education.degreeDetails.find((degree) => degree.id === degreeId)
-        const foundedSemester = foundDegree.semesterDetails.find((semester) => semester.id === semesterId)
-        setEditableSemesterData(foundedSemester)
-        setSemesterEditMode(true)
-    }
+        const foundDegree = data.education.degreeDetails.find((degree) => degree.id === degreeId);
+        if (!foundDegree) return;
+        const foundedSemester = foundDegree.semesterDetails.find((semester) => semester.id === semesterId);
+        if (!foundedSemester) return;
+        setEditableSemesterData(foundedSemester);
+        setSemesterID(semesterId);
+        setSemesterEditMode(true);
+        handleToggle();
+    };
 
     const deleteSemesterHandler = (semesterId, degreeId) => {
-        const foundDegree = data.education.degreeDetails.find((degree) => degree.id === degreeId)
-        const foundedSemester = foundDegree.semesterDetails.find((semester) => semester.id === semesterId)
-        const index = foundDegree.semesterDetails.indexOf(foundedSemester)
-        foundDegree.semesterDetails.splice(index, 1)
-        setData({ ...data })
-    }
-
+        const foundDegree = data.education.degreeDetails.find((degree) => degree.id === degreeId);
+        if (!foundDegree) return;
+        const foundedSemesterIndex = foundDegree.semesterDetails.findIndex((semester) => semester.id === semesterId);
+        if (foundedSemesterIndex === -1) return;
+        foundDegree.semesterDetails.splice(foundedSemesterIndex, 1);
+        setData((prevData) => ({
+            ...prevData,
+            education: {
+                ...prevData.education,
+                degreeDetails: prevData.education.degreeDetails.map((degree) =>
+                    degree.id === degreeId ? { ...degree, semesterDetails: foundDegree.semesterDetails } : degree
+                ),
+            },
+        }));
+    };
 
     const submitHandler = (values) => {
         if (semesterEditMode) {
-            const foundDegree = data.education.degreeDetails.find((degree) => degree.id === degreeid)
-            const degreeIndex = data.education.degreeDetails.indexOf(foundDegree)
-            const foundedSemester = foundDegree.semesterDetails.find((semester) => semester.id === semesterID)
-            const semesterIndex = foundDegree.semesterDetails.indexOf(foundedSemester)
+            const foundDegree = data.education.degreeDetails.find((degree) => degree.id === degreeid);
+            if (!foundDegree) return;
+            const foundedSemesterIndex = foundDegree.semesterDetails.findIndex((semester) => semester.id === semesterID);
+            if (foundedSemesterIndex === -1) return;
 
             const updatedSemester = {
                 ...editableSemesterData,
                 semester: values.semester,
                 percentage: values.percentage,
                 remarks: values.remarks
-            }
-            data.education.degreeDetails[degreeIndex].semesterDetails[semesterIndex] = updatedSemester
-            setData({ ...data })
-            setSemesterEditMode(false)
+            };
+            const updatedDegreeDetails = foundDegree.semesterDetails.map((semester, index) =>
+                index === foundedSemesterIndex ? updatedSemester : semester
+            );
+            const updatedDegree = { ...foundDegree, semesterDetails: updatedDegreeDetails };
+            const updatedDegreeIndex = data.education.degreeDetails.indexOf(foundDegree);
+            const updatedDegreeDetailsList = [
+                ...data.education.degreeDetails.slice(0, updatedDegreeIndex),
+                updatedDegree,
+                ...data.education.degreeDetails.slice(updatedDegreeIndex + 1),
+            ];
+            setData((prevData) => ({
+                ...prevData,
+                education: {
+                    ...prevData.education,
+                    degreeDetails: updatedDegreeDetailsList,
+                },
+            }));
+            setSemesterEditMode(false);
         } else {
-            const degree = data.education.degreeDetails.find((deg) => deg.id === degreeid)
-            degree.semesterDetails = [...degree.semesterDetails, {
-                id: Date.now(),
-                semester: values.semester,
-                percentage: values.percentage,
-                remarks: values.remarks
-            }]
-            setData({ ...data })
+            const foundDegree = data.education.degreeDetails.find((deg) => deg.id === degreeid);
+            if (!foundDegree) return;
+            const updatedSemesterDetails = [
+                ...foundDegree.semesterDetails,
+                {
+                    id: Date.now(),
+                    semester: values.semester,
+                    percentage: values.percentage,
+                    remarks: values.remarks
+                },
+            ];
+            const updatedDegreeDetailsList = data.education.degreeDetails.map((degree) =>
+                degree.id === degreeid ? { ...degree, semesterDetails: updatedSemesterDetails } : degree
+            );
+            setData((prevData) => ({
+                ...prevData,
+                education: {
+                    ...prevData.education,
+                    degreeDetails: updatedDegreeDetailsList,
+                },
+            }));
         }
-        setValue('semester', '')
-        setValue('percentage', '')
-        setValue('remarks', '')
-        reset()
-        handleToggle()
-    }
+        reset();
+        handleToggle();
+    };
 
 
     return (

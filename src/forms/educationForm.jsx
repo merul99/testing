@@ -16,18 +16,28 @@ const EducationForm = ({ formTitle, data, setData }) => {
     };
 
     const deleteHandler = (degreeId) => {
-        const foundDegree = data.education.degreeDetails.find((degree) => degree.id === degreeId)
-        const index = data.education.degreeDetails.indexOf(foundDegree)
-        data.education.degreeDetails.splice(index, 1)
-        setData({ ...data })
-    }
+        const foundDegreeIndex = data.education.degreeDetails.findIndex((degree) => degree.id === degreeId);
+        if (foundDegreeIndex === -1) return;
+        const updatedDegreeDetailsList = [
+            ...data.education.degreeDetails.slice(0, foundDegreeIndex),
+            ...data.education.degreeDetails.slice(foundDegreeIndex + 1),
+        ];
+        setData((prevData) => ({
+            ...prevData,
+            education: {
+                ...prevData.education,
+                degreeDetails: updatedDegreeDetailsList,
+            },
+        }));
+    };
 
     const editDegreeHandler = (degreeId, e) => {
-        const editableDegree = data.education.degreeDetails.find((degree) => degree.id === degreeId)
-        setEditableDegreeData(editableDegree)
-        handleToggle(e)
-        setEditMode(true)
-    }
+        const editableDegree = data.education.degreeDetails.find((degree) => degree.id === degreeId);
+        if (!editableDegree) return;
+        setEditableDegreeData(editableDegree);
+        handleToggle(e);
+        setEditMode(true);
+    };
 
     return (
         <Card>

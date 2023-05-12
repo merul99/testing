@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { Button, Card, Col, Form, Row } from 'react-bootstrap'
-import { useForm, useFormContext } from 'react-hook-form'
+import { Button, Card, Col, Row } from 'react-bootstrap'
+import { useFormContext } from 'react-hook-form'
 import RHFInput from '../components/RHFInput'
 
 const DegreeDetailsForm = ({ formTitle, data, setData, handleToggle, editMode, setEditMode, editableDegreeData }) => {
@@ -19,36 +19,41 @@ const DegreeDetailsForm = ({ formTitle, data, setData, handleToggle, editMode, s
 
     const submitHandler = (values) => {
         if (isEditMode) {
-            const updatedDegree = { ...editableDegreeData, collageName: values.collageName, degree: values.degree }
-            const foundDegree = data.education.degreeDetails.find((degree) => degree.id === editableDegreeData.id)
-            const index = data.education.degreeDetails.indexOf(foundDegree)
-            data.education.degreeDetails[index] = updatedDegree
-            setData({ ...data })
-            setEditMode(false)
-        } else {
-            const education = {
+            const foundDegree = data.education.degreeDetails.find((degree) => degree.id === editableDegreeData.id);
+            if (!foundDegree) return;
+            const updatedDegree = { ...editableDegreeData, collageName: values.collageName, degree: values.degree };
+            const updatedDegreeDetailsList = data.education.degreeDetails.map((degree) =>
+                degree.id === editableDegreeData.id ? updatedDegree : degree
+            );
+            setData((prevData) => ({
+                ...prevData,
                 education: {
-                    degreeDetails: [...data?.education?.degreeDetails, {
-                        id: Date.now(),
-                        collageName: values.collageName,
-                        degree: values.degree,
-                        semesterDetails: []
-                    }]
-                }
-            }
-            setData({ ...data, ...education })
+                    ...prevData.education,
+                    degreeDetails: updatedDegreeDetailsList,
+                },
+            }));
+            setEditMode(false);
+        } else {
+            const updatedDegreeDetails = [
+                ...data?.education?.degreeDetails,
+                {
+                    id: Date.now(),
+                    collageName: values.collageName,
+                    degree: values.degree,
+                    semesterDetails: [],
+                },
+            ];
+            setData((prevData) => ({
+                ...prevData,
+                education: {
+                    ...prevData.education,
+                    degreeDetails: updatedDegreeDetails,
+                },
+            }));
         }
-        reset()
-        handleToggle()
-    }
-
-    // const handleSubmitWithoutPropagation = (e) => {
-    //     e.preventDefault();
-    //     // e.stopPropagation();
-    //     console.log('e at degree', e)
-    //     handleSubmit(submitHandler)(e);
-    // };
-
+        reset();
+        handleToggle();
+    };
 
     return (
         <Card>
@@ -56,7 +61,6 @@ const DegreeDetailsForm = ({ formTitle, data, setData, handleToggle, editMode, s
                 <h5>{formTitle}</h5>
             </Card.Header>}
             <Card.Body>
-                {/* <Form onSubmit={handleSubmitWithoutPropagation}> */}
                 <Row className="mb-1">
                     <Col>
                         <RHFInput
@@ -89,7 +93,6 @@ const DegreeDetailsForm = ({ formTitle, data, setData, handleToggle, editMode, s
                         <Button variant='success' type="submit" onClick={handleSubmit(submitHandler)}>Submit</Button>
                     </Col>
                 </Row>
-                {/* </Form> */}
             </Card.Body>
         </Card >
     )
